@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const PalindromeForm = () => {
   const [palindromeInput, setPalindromeInput] = useState([]);
@@ -17,6 +17,20 @@ const PalindromeForm = () => {
   const handlesPalindromeChange = (event) => {
     setPalindromeInput(event.target.value);
   };
+
+  function useData() {
+    useEffect(() => {
+      axios
+        .get(
+          "https://0r00rlj7cb.execute-api.eu-west-2.amazonaws.com/prod/items"
+        )
+        .then((res) => {
+          let response = res.data;
+          setPalindromeList(response);
+        });
+    }, []);
+    return palindromeList;
+  }
 
   return (
     <div>
