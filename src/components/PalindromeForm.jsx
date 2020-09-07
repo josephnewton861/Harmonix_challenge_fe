@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const PalindromeForm = () => {
   const [palindromeInput, setPalindromeInput] = useState([]);
+  const [palindromeList, setPalindromeList] = useState([]);
 
   const isPalindrome = (str) => {
     if (typeof str !== "string") return "Input requires a string";
@@ -32,11 +34,22 @@ const PalindromeForm = () => {
     return palindromeList;
   }
 
+  const tableData = useData();
+
   return (
     <div>
       <input type="text" onChange={handlesPalindromeChange} />
       <button>Log Palindrome</button>
       {isPalindrome(palindromeInput) === false ? <p>False</p> : <p>True</p>}
+      {tableData.map((data) => {
+        return (
+          <ul>
+            <li>
+              {data.palindromeInput} {data.timestamp} {data.trueOrFalse}
+            </li>
+          </ul>
+        );
+      })}
     </div>
   );
 };
